@@ -1,39 +1,42 @@
 <template>
   <div id="app">
-    <img
-      alt="Vue logo"
-      src="./assets/logo.png"
-    >
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-    <div class="attribution">
-      Challenge by <a
-        href="https://www.frontendmentor.io?ref=challenge"
-        target="_blank"
-      >Frontend Mentor</a>.
-      Coded by <a href="#">Your Name Here</a>.
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <Home />
+        </div>
+      </div>
+      <div class="attribution">
+        Challenge by <a
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+        >Frontend Mentor</a>.
+        Coded by <a
+          href="https://github.com/poiozex"
+          target="_blank"
+        >João Vitor Cenedeze</a>.
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Home from './components/Home.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Home
   }
 }
 </script>
 
 <style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-family: "Rubik", sans-serif;
   .attribution {
     font-size: 11px;
     text-align: center;
