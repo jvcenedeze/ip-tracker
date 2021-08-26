@@ -18,126 +18,65 @@
                 >
                 <span
                   class="input-group-text d-flex justify-content-center alig-items-center"
-                  @click="putGeolocation"
+                  @click="setMap"
                   id="basic-addon2"
                 ><i class="fas fa-chevron-right fa"></i></span>
               </div>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-1 col-md-2"></div>
-          <div class="col-10 col-md-8">
-            <div class="all-status-data">
-              <div class="row h-100">
-                <div class="col-12 col-md-6 col-lg-3">
-                  <div class="status d-flex justify-content-center align-items-center">
-                    <div class="h-50 w-100 ps-4">
-                      <p class="status-type">IP ADDRESS</p>
-                      <p
-                        class="status-data"
-                        v-if="ip"
-                      >{{ ip }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                  <div class="status d-flex justify-content-center align-items-center">
-                    <div class="h-50 w-100 ps-2">
-                      <p class="status-type">LOCATION</p>
-                      <p
-                        class="status-data"
-                        v-if="city && region && country"
-                      >{{ city }}, {{ region }} - {{ country }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                  <div class="status d-flex justify-content-center align-items-center">
-                    <div class="h-50 w-100 ps-2">
-                      <p class="status-type">TIMEZONE</p>
-                      <p
-                        class="status-data"
-                        v-if="timezone"
-                      >UTC {{ timezone }}</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3">
-                  <div class="status d-flex justify-content-center align-items-center">
-                    <div class="h-50 w-100 ps-2">
-                      <p class="status-type">ISP</p>
-                      <p
-                        class="status-data"
-                        v-if="isp"
-                      >{{ isp }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      </div>
+      <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+          <Data :isLoading="isLoading" />
         </div>
       </div>
     </div>
-    <div id="mapid"></div>
+    <Map v-if="!isLoading" />
+
   </div>
 
 </template>
 
 <script>
 
-import { mapState, mapActions } from 'vuex'
-import leaflet from "leaflet";
+import Map from './../view/Map.vue'
+import Data from './../view/Data.vue'
+
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Home',
+  components: {
+    Map,
+    Data
+  },
   data () {
     return {
-      isLoading: false,
-      ipOrDomain: ''
+      isLoading: true,
+      ipOrDomain: '',
+
     }
-  },
-  computed: {
-    ...mapState({
-      ip: state => state.geolocation.ip,
-      city: state => state.geolocation.location.city,
-      region: state => state.geolocation.location.region,
-      country: state => state.geolocation.location.country,
-      timezone: state => state.geolocation.location.timezone,
-      isp: state => state.geolocation.isp,
-      lat: state => state.geolocation.location.lat,
-      lng: state => state.geolocation.location.lng
-    })
   },
   methods: {
     ...mapActions([
       'getGeolocation'
     ]),
-    async putGeolocation () {
-      this.isLoading = true
+    async mountMap () {
       // eslint-disable-next-line no-unused-vars
       const response = await this.getGeolocation(this.ipOrDomain)
       this.isLoading = false
     },
+    async setMap () {
+      this.isLoading = true
+      // eslint-disable-next-line no-unused-vars
+      const response = await this.getGeolocation(this.ipOrDomain)
+      this.isLoading = false
+    }
   },
   created () {
-    this.getGeolocation('')
-  },
-  mounted () {
-    let mymap;
-
-    mymap = leaflet.map('mapid').setView([51.505, -0.09], 13);
-
-    leaflet.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoicG9pb3pleCIsImEiOiJja3NwM2tibzMwMjI1MzBsY2swbGIzYm02In0.1yvOJvYWO2WiWMY7mXiWaQ', {
-      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      maxZoom: 18,
-      id: 'mapbox/streets-v11',
-      tileSize: 512,
-      zoomOffset: -1,
-      accessToken: 'pk.eyJ1IjoicG9pb3pleCIsImEiOiJja3NwM2tibzMwMjI1MzBsY2swbGIzYm02In0.1yvOJvYWO2WiWMY7mXiWaQ'
-    }).addTo(mymap);
-
+    this.mountMap()
   }
 }
 </script>
@@ -177,34 +116,45 @@ $dark-grey: hsl(0, 0%, 59%);
     }
   }
 }
-.all-status-data {
-  background-color: white;
-  border-radius: 15px;
-  height: 140px;
-  margin-top: 30px;
-  div.row {
-    div.col-12 {
-      height: 100%;
-      .status {
-        height: 100%;
-        .status-type {
-          font-size: 12px;
-          margin-top: -5px;
-          font-weight: 500;
-          color: $dark-grey;
-        }
-        .status-data {
-          margin-top: -10px;
-          font-size: 20px;
-          font-weight: 500;
+.row {
+  z-index: 20;
+  .col-10 {
+    .all-status-data {
+      background-color: white;
+      border-radius: 15px;
+      height: 140px;
+      margin-top: -70px;
+      div.row {
+        div.col-12 {
+          height: 100%;
+          .status {
+            height: 100%;
+            z-index: 30;
+            .status-type {
+              font-size: 12px;
+              margin-top: -5px;
+              font-weight: 500;
+              color: $dark-grey;
+              z-index: 30;
+            }
+            .status-data {
+              margin-top: -10px;
+              font-size: 20px;
+              font-weight: 500;
+              z-index: 30;
+            }
+            .blur-data {
+              -webkit-filter: blur(8px);
+              -moz-filter: blur(8px);
+              -ms-filter: blur(8px);
+              -o-filter: blur(8px);
+              filter: blur(8px);
+            }
+          }
         }
       }
     }
   }
-}
-#mapid {
-  height: 500px;
-  width: 800px;
 }
 
 @media (min-width: 992px) {
@@ -220,6 +170,62 @@ $dark-grey: hsl(0, 0%, 59%);
           div {
             border: none;
           }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .all-status-data {
+    .row {
+      .col-12:first-child {
+        .status {
+          border-bottom: 1px solid hsl(0, 0%, 79%);
+          div {
+            border-right: 1px solid hsl(0, 0%, 79%);
+          }
+        }
+      }
+    }
+  }
+  .all-status-data {
+    .row {
+      .col-12:nth-child(3) {
+        .status {
+          div {
+            border-right: 1px solid hsl(0, 0%, 79%);
+          }
+        }
+      }
+    }
+  }
+  .all-status-data {
+    .row {
+      .col-12:last-child {
+        .status {
+          border-top: 1px solid hsl(0, 0%, 79%);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .all-status-data {
+    .row {
+      .col-12 {
+        .status {
+          border-bottom: 1px solid hsl(0, 0%, 79%);
+        }
+      }
+    }
+  }
+  .all-status-data {
+    .row {
+      .col-12:last-child {
+        .status {
+          border-bottom: none;
         }
       }
     }
