@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <div class="row">
+      <div class="row w-100">
         <div class="col-1"></div>
         <div class="col-10">
           <Data :isLoading="isLoading" />
@@ -55,8 +55,7 @@ export default {
   data () {
     return {
       isLoading: true,
-      ipOrDomain: '',
-
+      ipOrDomain: ''
     }
   },
   methods: {

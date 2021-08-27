@@ -46,6 +46,8 @@ export default {
   margin-top: -70px;
   height: 400px;
   width: 100%;
-  z-index: 10;
+  div {
+    z-index: 10;
+  }
 }
 </style>
