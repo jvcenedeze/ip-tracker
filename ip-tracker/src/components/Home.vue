@@ -14,6 +14,7 @@
                   placeholder="Search for any IP address or domain"
                   aria-label="Search for any IP address or domain"
                   aria-describedby="basic-addon2"
+                  @keyup.enter="setMap"
                   v-model.trim="ipOrDomain"
                 >
                 <span
@@ -33,7 +34,7 @@
         </div>
       </div>
     </div>
-    <Map v-if="!isLoading" />
+    <Map v-if="!isLoading && !this.$store.state.error" />
 
   </div>
 
@@ -62,16 +63,19 @@ export default {
     ...mapActions([
       'getGeolocation'
     ]),
+    setLoading (payload) {
+      this.isLoading = payload
+    },
     async mountMap () {
       // eslint-disable-next-line no-unused-vars
       const response = await this.getGeolocation(this.ipOrDomain)
-      this.isLoading = false
+      this.setLoading(false)
     },
     async setMap () {
-      this.isLoading = true
+      this.setLoading(true)
       // eslint-disable-next-line no-unused-vars
       const response = await this.getGeolocation(this.ipOrDomain)
-      this.isLoading = false
+      this.setLoading(false)
     }
   },
   created () {
@@ -82,6 +86,7 @@ export default {
 
 <style lang="scss">
 $very-dark-grey: hsl(0, 0%, 17%);
+$middle-dark-grey: hsl(0, 0%, 30%);
 $dark-grey: hsl(0, 0%, 59%);
 
 .blue-background {
@@ -95,6 +100,7 @@ $dark-grey: hsl(0, 0%, 59%);
   }
   span#basic-addon2 {
     background-color: $very-dark-grey;
+    transition: background-color 0.3s;
     border: none;
     width: 55px;
     border-top-right-radius: 15px;
@@ -103,6 +109,10 @@ $dark-grey: hsl(0, 0%, 59%);
     i {
       color: white;
     }
+  }
+  span#basic-addon2:hover {
+    background-color: $middle-dark-grey;
+    transition: background-color 0.3s;
   }
   .input-group {
     height: 55px;
@@ -142,17 +152,27 @@ $dark-grey: hsl(0, 0%, 59%);
               font-weight: 500;
               z-index: 30;
             }
-            .blur-data {
-              -webkit-filter: blur(8px);
-              -moz-filter: blur(8px);
-              -ms-filter: blur(8px);
-              -o-filter: blur(8px);
-              filter: blur(8px);
+            .loading-data {
+              opacity: 0.7;
+              animation: skeleton-loading 1s linear infinite alternate;
+              width: 85%;
+              height: 20px;
+              border-radius: 0.2rem;
+              margin-top: -5px;
             }
           }
         }
       }
     }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
   }
 }
 

@@ -1,6 +1,9 @@
 <template>
   <div class="all-status-data">
-    <div class="row h-100">
+    <div
+      class="row h-100"
+      v-if="!this.$store.state.error"
+    >
       <div class="col-12 col-md-6 col-lg-3">
         <div class="status d-flex justify-content-center align-items-center">
           <div class="h-50 w-100 ps-4">
@@ -9,10 +12,10 @@
               class="status-data"
               v-if="!isLoading"
             >{{ geolocation.ip }}</p>
-            <p
-              class="blur-data"
+            <div
+              class="loading-data"
               v-if="isLoading"
-            >8.8.8.8</p>
+            ></div>
           </div>
         </div>
       </div>
@@ -24,10 +27,10 @@
               class="status-data"
               v-if="!isLoading"
             >{{ location.city }}, {{ location.region }} - {{ location.country }}</p>
-            <p
-              class="blur-data"
+            <div
+              class="loading-data"
               v-if="isLoading"
-            >Mountain View, California - US</p>
+            ></div>
           </div>
         </div>
       </div>
@@ -39,10 +42,10 @@
               class="status-data"
               v-if="!isLoading"
             >UTC {{ location.timezone }}</p>
-            <p
-              class="blur-data"
+            <div
+              class="loading-data"
               v-if="isLoading"
-            >UTC -07:00</p>
+            ></div>
           </div>
         </div>
       </div>
@@ -54,11 +57,21 @@
               class="status-data"
               v-if="!isLoading"
             >{{ geolocation.isp }}</p>
-            <p
-              class="blur-data"
+            <div
+              class="loading-data"
               v-if="isLoading"
-            >Google LLC</p>
+            ></div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row h-100"
+      v-if="this.$store.state.error == 'Error: Request failed with status code 422'"
+    >
+      <div class="col-12 h-100 w-100">
+        <div class="alert-invalid-ip h-100 d-flex justify-content-center align-items-center">
+          Input correct IPv4 or IPv6 address.
         </div>
       </div>
     </div>
@@ -84,4 +97,27 @@ export default {
 </script>
 
 <style lang="scss">
+.alert-invalid-ip {
+  border-radius: 15px;
+  background-color: rgb(234, 234, 255);
+  color: blue;
+}
+
+@media (min-width: 992px) {
+  .alert-invalid-ip {
+    font-size: 24px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .alert-invalid-ip {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 767px) {
+  .alert-invalid-ip {
+    font-size: 14px;
+  }
+}
 </style>

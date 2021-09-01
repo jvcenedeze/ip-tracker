@@ -8,7 +8,7 @@ const state = {
   geolocation: {
     location: {}
   },
-  error: undefined
+  error: null
 }
 
 const mutations = {
@@ -18,9 +18,18 @@ const mutations = {
 
 const actions = {
   async getGeolocation ({ commit }, ip) {
+    this.state.error = null
     try {
       const response = await axios.get(`https://geo.ipify.org/api/v1?apiKey=at_ghwQV38CFObSmiYrHunXAbpqE0owU&ipAddress=${ip}`)
-      commit('setGeolocation', response.data)
+      if (response.statusText === 'OK') {
+        if (response.data.code) {
+          commit('setError', response.data)
+        } else {
+          commit('setGeolocation', response.data)
+        }
+      } else {
+        commit('setError', response.status)
+      }
     } catch (error) {
       commit('setError', error)
     }
