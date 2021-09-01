@@ -2,7 +2,7 @@
   <div id="app">
     <div class="container-fluid">
       <div class="row">
-        <div class="col">
+        <div class="col-12">
           <Home />
         </div>
       </div>

@@ -6,7 +6,7 @@
     >
       <div class="col-12 col-md-6 col-lg-3">
         <div class="status d-flex justify-content-center align-items-center">
-          <div class="h-50 w-100 ps-4">
+          <div class="h-50 w-100">
             <p class="status-type">IP ADDRESS</p>
             <p
               class="status-data"
@@ -21,7 +21,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-3">
         <div class="status d-flex justify-content-center align-items-center">
-          <div class="h-50 w-100 ps-2">
+          <div class="h-50 w-100">
             <p class="status-type">LOCATION</p>
             <p
               class="status-data"
@@ -36,7 +36,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-3">
         <div class="status d-flex justify-content-center align-items-center">
-          <div class="h-50 w-100 ps-2">
+          <div class="h-50 w-100">
             <p class="status-type">TIMEZONE</p>
             <p
               class="status-data"
@@ -51,7 +51,7 @@
       </div>
       <div class="col-12 col-md-6 col-lg-3">
         <div class="status d-flex justify-content-center align-items-center">
-          <div class="h-50 w-100 ps-2">
+          <div class="h-50 w-100">
             <p class="status-type">ISP</p>
             <p
               class="status-data"

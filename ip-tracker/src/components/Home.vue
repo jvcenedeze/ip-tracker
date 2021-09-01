@@ -35,7 +35,6 @@
       </div>
     </div>
     <Map v-if="!isLoading && !this.$store.state.error" />
-
   </div>
 
 </template>
@@ -131,16 +130,11 @@ $dark-grey: hsl(0, 0%, 59%);
     .all-status-data {
       background-color: white;
       border-radius: 15px;
-      height: 140px;
-      margin-top: -70px;
       div.row {
         div.col-12 {
-          height: 100%;
           .status {
-            height: 100%;
             z-index: 30;
             .status-type {
-              font-size: 12px;
               margin-top: -5px;
               font-weight: 500;
               color: $dark-grey;
@@ -148,14 +142,13 @@ $dark-grey: hsl(0, 0%, 59%);
             }
             .status-data {
               margin-top: -10px;
-              font-size: 20px;
               font-weight: 500;
               z-index: 30;
             }
             .loading-data {
               opacity: 0.7;
               animation: skeleton-loading 1s linear infinite alternate;
-              width: 85%;
+              width: 90%;
               height: 20px;
               border-radius: 0.2rem;
               margin-top: -5px;
@@ -177,17 +170,40 @@ $dark-grey: hsl(0, 0%, 59%);
 }
 
 @media (min-width: 992px) {
-  .status {
-    div {
-      border-right: 1px solid hsl(0, 0%, 79%);
-    }
+  #mapid {
+    margin-top: -70px;
   }
-  .all-status-data {
-    .row {
-      .col-12:last-child {
-        .status {
-          div {
-            border: none;
+  div.col-12 {
+    height: 100%;
+    .status {
+      height: 100%;
+
+      .status-type {
+        font-size: 12px;
+      }
+      .status-data {
+        font-size: 20px;
+      }
+      div {
+        border-right: 1px solid hsl(0, 0%, 79%);
+      }
+    }
+    .all-status-data {
+      height: 140px;
+      margin-top: -70px;
+      .row {
+        .col-12:first-child {
+          .status {
+            div {
+              padding-left: 20px;
+            }
+          }
+        }
+        .col-12:last-child {
+          .status {
+            div {
+              border: none;
+            }
           }
         }
       }
@@ -196,31 +212,54 @@ $dark-grey: hsl(0, 0%, 59%);
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
+  #mapid {
+    margin-top: -110px;
+  }
   .all-status-data {
+    height: 220px;
+    margin-top: -110px;
     .row {
+      .col-12 {
+        height: 50%;
+        .status {
+          height: 100%;
+          margin: 0 16px;
+          .status-type {
+            font-size: 12px;
+          }
+          .status-data {
+            font-size: 20px;
+          }
+          div {
+            margin-right: -50px;
+            padding-right: 18px;
+            p {
+              margin-left: -30px;
+            }
+          }
+        }
+      }
       .col-12:first-child {
         .status {
           border-bottom: 1px solid hsl(0, 0%, 79%);
           div {
             border-right: 1px solid hsl(0, 0%, 79%);
+            p {
+              margin-left: -20px;
+            }
           }
         }
       }
-    }
-  }
-  .all-status-data {
-    .row {
       .col-12:nth-child(3) {
         .status {
           div {
             border-right: 1px solid hsl(0, 0%, 79%);
+            p {
+              margin-left: -20px;
+            }
           }
         }
       }
-    }
-  }
-  .all-status-data {
-    .row {
       .col-12:last-child {
         .status {
           border-top: 1px solid hsl(0, 0%, 79%);
@@ -231,11 +270,22 @@ $dark-grey: hsl(0, 0%, 59%);
 }
 
 @media (max-width: 767px) {
+  #mapid {
+    margin-top: -160px;
+  }
   .all-status-data {
+    margin-top: -100px;
+    height: 260px;
     .row {
       .col-12 {
         .status {
           border-bottom: 1px solid hsl(0, 0%, 79%);
+          .status-type {
+            font-size: 10px;
+          }
+          .status-data {
+            font-size: 14px;
+          }
         }
       }
     }
