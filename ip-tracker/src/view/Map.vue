@@ -43,7 +43,7 @@ export default {
 
 <style lang="scss">
 #mapid {
-  height: 450px;
+  height: calc(100vh - 280px);
   width: 100%;
   div {
     z-index: 10;

@@ -36,7 +36,6 @@
     </div>
     <Map v-if="!isLoading && !this.$store.state.error" />
   </div>
-
 </template>
 
 <script>
@@ -145,14 +144,6 @@ $dark-grey: hsl(0, 0%, 59%);
               font-weight: 500;
               z-index: 30;
             }
-            .loading-data {
-              opacity: 0.7;
-              animation: skeleton-loading 1s linear infinite alternate;
-              width: 90%;
-              height: 20px;
-              border-radius: 0.2rem;
-              margin-top: -5px;
-            }
           }
         }
       }
@@ -183,6 +174,14 @@ $dark-grey: hsl(0, 0%, 59%);
       }
       .status-data {
         font-size: 20px;
+      }
+      .loading-data {
+        opacity: 0.7;
+        animation: skeleton-loading 1s linear infinite alternate;
+        width: 90%;
+        height: 20px;
+        border-radius: 0.2rem;
+        margin-top: -5px;
       }
       div {
         border-right: 1px solid hsl(0, 0%, 79%);
@@ -230,6 +229,14 @@ $dark-grey: hsl(0, 0%, 59%);
           .status-data {
             font-size: 20px;
           }
+          .loading-data {
+            opacity: 0.7;
+            animation: skeleton-loading 1s linear infinite alternate;
+            width: 90%;
+            height: 20px;
+            border-radius: 0.2rem;
+            margin-top: -5px;
+          }
           div {
             margin-right: -50px;
             padding-right: 18px;
@@ -271,20 +278,31 @@ $dark-grey: hsl(0, 0%, 59%);
 
 @media (max-width: 767px) {
   #mapid {
-    margin-top: -160px;
+    margin-top: -130px;
   }
   .all-status-data {
     margin-top: -100px;
-    height: 260px;
+    height: 230px;
     .row {
       .col-12 {
         .status {
-          border-bottom: 1px solid hsl(0, 0%, 79%);
           .status-type {
             font-size: 10px;
+            margin-bottom: 10px;
+            letter-spacing: 1.5px;
+            text-align: center;
           }
           .status-data {
-            font-size: 14px;
+            font-size: 16px;
+            text-align: center;
+          }
+          .loading-data {
+            opacity: 0.7;
+            animation: skeleton-loading 1s linear infinite alternate;
+            width: 90%;
+            height: 20px;
+            border-radius: 0.2rem;
+            margin: 0px auto;
           }
         }
       }
@@ -292,9 +310,9 @@ $dark-grey: hsl(0, 0%, 59%);
   }
   .all-status-data {
     .row {
-      .col-12:last-child {
+      .col-12:first-child {
         .status {
-          border-bottom: none;
+          padding-top: 15px;
         }
       }
     }

@@ -37,6 +37,11 @@ export default {
 
 #app {
   font-family: "Rubik", sans-serif;
+  .container-fluid {
+    margin: 0px auto;
+    padding: 0px;
+    overflow-x: hidden;
+  }
   .attribution {
     font-size: 11px;
     text-align: center;

@@ -97,6 +97,10 @@ export default {
 </script>
 
 <style lang="scss">
+.all-status-data {
+  max-width: 1300px;
+  margin: auto;
+}
 .alert-invalid-ip {
   border-radius: 15px;
   background-color: rgb(234, 234, 255);
