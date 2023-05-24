@@ -12,7 +12,7 @@
           target="_blank"
         >Frontend Mentor</a>.
         Coded by <a
-          href="https://github.com/poiozex"
+          href="https://github.com/jvcenedeze"
           target="_blank"
         >João Vitor Cenedeze</a>.
       </div>
