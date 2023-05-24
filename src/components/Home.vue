@@ -16,12 +16,17 @@
                   aria-describedby="basic-addon2"
                   @keyup.enter="setMap"
                   v-model.trim="ipOrDomain"
-                >
+                  :disabled="isLoading"
+                />
                 <span
                   class="input-group-text d-flex justify-content-center alig-items-center"
+                  :class="{ disabled: isLoading }"
                   @click="setMap"
                   id="basic-addon2"
-                ><i class="fas fa-chevron-right fa"></i></span>
+                >
+                  <i v-if="!isLoading" class="fas fa-chevron-right fa"></i>
+                  <i v-else class="button-loading fas fa-spinner fa"></i>
+                </span>
               </div>
             </div>
           </div>
@@ -51,7 +56,7 @@ export default {
     Map,
     Data
   },
-  data () {
+  data() {
     return {
       isLoading: true,
       ipOrDomain: ''
@@ -61,22 +66,23 @@ export default {
     ...mapActions([
       'getGeolocation'
     ]),
-    setLoading (payload) {
+    setLoading(payload) {
       this.isLoading = payload
     },
-    async mountMap () {
+    async mountMap() {
       // eslint-disable-next-line no-unused-vars
       const response = await this.getGeolocation(this.ipOrDomain)
       this.setLoading(false)
     },
-    async setMap () {
+    async setMap() {
+      if (this.isLoading) return
       this.setLoading(true)
       // eslint-disable-next-line no-unused-vars
       const response = await this.getGeolocation(this.ipOrDomain)
       this.setLoading(false)
     }
   },
-  created () {
+  created() {
     this.mountMap()
   }
 }
@@ -151,6 +157,11 @@ $dark-grey: hsl(0, 0%, 59%);
   }
 }
 
+.disabled {
+  opacity: 0.65;
+  pointer-events: none;
+}
+
 @keyframes skeleton-loading {
   0% {
     background-color: hsl(200, 20%, 70%);
@@ -158,6 +169,19 @@ $dark-grey: hsl(0, 0%, 59%);
   100% {
     background-color: hsl(200, 20%, 95%);
   }
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.button-loading {
+  animation: rotation 2s infinite linear;
 }
 
 @media (min-width: 992px) {
